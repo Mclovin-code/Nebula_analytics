@@ -77,6 +77,7 @@ chart = alt.Chart(pnl_df).mark_line(color='purple').encode(
     y=alt.Y('Equity Multiple:Q', title='Equity Multiple')
 ).properties(
     title='Equity Curve'
+    )
 
 # Display the plot in Streamlit
 st.altair_chart(chart, use_container_width=True)
