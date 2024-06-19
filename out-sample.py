@@ -61,6 +61,13 @@ pnl_df['Strategy'] = pnl_df['Daily Equity'] / initial_margin
 pnl_df['Equity Multiple'] = (pnl_df['Daily Equity'] / initial_margin - 1) * 100
 
 pnl_df['Trade Date'] = pnl_df['Trade Date'].dt.date
+pnl_df = pnl_df.drop(['Symbol', 'PNL','RealisedPNL','Cumulative PNL'], axis=1)
+
+pnl_df['Trade Date'] = pd.to_datetime(pnl_df['Trade Date'])
+pnl_df.set_index('Trade Date', inplace=True)
+
+pnl_df = pnl_df.resample('D').last()
+pnl_df.dropna(inplace=True)
 
 # # Create the equity curve
 # st.title("Equity Curve")
