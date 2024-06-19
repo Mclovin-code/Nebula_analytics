@@ -142,7 +142,6 @@ pnl_df['bnf'] = (pnl_df['Strategy1'] - 1) * 100
 
 pnl_df.reset_index(inplace=True)
 
-# Ensure the DataFrame is not empty and contains the necessary columns
 if not pnl_df.empty and 'Trade Date' in pnl_df.columns and 'Equity Multiple' in pnl_df.columns and 'bnf' in pnl_df.columns:
     st.title("Orion vs BankNifty")
     zoom = alt.selection_interval(bind='scales')
@@ -162,15 +161,17 @@ if not pnl_df.empty and 'Trade Date' in pnl_df.columns and 'Equity Multiple' in 
         y=alt.Y('bnf:Q', title='BankNifty')
     )
 
-    # Combine both lines in a layered chart without background elements
+    # Combine both lines in a layered chart without scales
     chart = alt.layer(
         equity_line,
         bnf_line
     ).properties(
-        title='Equity Curve vs BankNifty',
-        background=None
-    ).configure_view(
-        strokeOpacity=0
+        title='Equity Curve vs BankNifty'
+    ).configure_axis(
+        domain=False,
+        ticks=False,
+        labels=False,
+        grid=False
     ).add_selection(
         zoom
     )
@@ -179,7 +180,6 @@ if not pnl_df.empty and 'Trade Date' in pnl_df.columns and 'Equity Multiple' in 
     st.altair_chart(chart, use_container_width=True)
 else:
     st.write("The DataFrame is empty or does not contain the required columns.")
-
 
 # def max_drawdown(df):
 #     """
