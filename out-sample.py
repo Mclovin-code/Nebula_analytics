@@ -143,33 +143,43 @@ pnl_df['bnf'] = (pnl_df['Strategy1'] - 1) * 100
 # # Display the plot in Streamlit
 # st.altair_chart(chart, use_container_width=True)
 
-st.title("Orion vs BankNifty")
-zoom = alt.selection_interval(bind='scales')
+# Display the DataFrame in Streamlit for debugging purposes
+st.write("DataFrame:", pnl_df)
 
-# Create the base chart
-base = alt.Chart(pnl_df).encode(
-    x=alt.X('Trade Date:T', title='Trade Date', axis=alt.Axis(format='%Y-%m-%d'))
-)
+# Ensure the DataFrame is not empty and contains the necessary columns
+if not pnl_df.empty and 'Trade Date' in pnl_df.columns and 'Equity Multiple' in pnl_df.columns and 'bnf' in pnl_df.columns:
+    st.title("Orion vs BankNifty")
+    zoom = alt.selection_interval(bind='scales')
 
-# Create the line for Equity Multiple
-equity_line = base.mark_line(color='purple').encode(
-    y=alt.Y('Equity Multiple:Q', title='Equity Multiple')
-)
+    # Create the base chart
+    base = alt.Chart(pnl_df).encode(
+        x=alt.X('Trade Date:T', title='Trade Date', axis=alt.Axis(format='%Y-%m-%d'))
+    )
 
-# Create the line for BankNifty
-bnf_line = base.mark_line(color='blue').encode(
-    y=alt.Y('bnf:Q', title='BankNifty')
-)
+    # Create the line for Equity Multiple
+    equity_line = base.mark_line(color='purple').encode(
+        y=alt.Y('Equity Multiple:Q', title='Equity Multiple')
+    )
 
-# Combine both lines in a layered chart
-chart = alt.layer(
-    equity_line,
-    bnf_line
-).properties(
-    title='Equity Curve vs BankNifty'
-).add_selection(
-    zoom
-)
+    # Create the line for BankNifty
+    bnf_line = base.mark_line(color='blue').encode(
+        y=alt.Y('bnf:Q', title='BankNifty')
+    )
+
+    # Combine both lines in a layered chart
+    chart = alt.layer(
+        equity_line,
+        bnf_line
+    ).properties(
+        title='Equity Curve vs BankNifty'
+    ).add_selection(
+        zoom
+    )
+
+    # Display the plot in Streamlit
+    st.altair_chart(chart, use_container_width=True)
+else:
+    st.write("The DataFrame is empty or does not contain the required columns.")
 
 
 
