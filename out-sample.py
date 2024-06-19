@@ -16,6 +16,8 @@ curve = pd.read_excel('jash.xlsx')
 import warnings
 warnings.filterwarnings('ignore')
 import altair as alt
+from kiteconnect import KiteConnect
+import zerodha_functions as zf
 
 pnl = []
 
