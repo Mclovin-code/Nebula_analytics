@@ -10,14 +10,13 @@ api_key = 'oy85tua1dxxc60en'
 api_secret = 'cc704wqcx0a0a77w916lsp0kt3yy4yc6'
 
 import pandas as pd
-import numpy as np
 import streamlit as st
 curve = pd.read_excel('jash.xlsx')
 import warnings
+import numpy as np
 warnings.filterwarnings('ignore')
 import altair as alt
-from kiteconnect import KiteConnect
-import zerodha_functions as zf
+
 
 pnl = []
 
@@ -72,6 +71,55 @@ pnl_df = pnl_df.resample('D').last()
 pnl_df.dropna(inplace=True)
 pnl_df.reset_index(inplace=True)
 
+# OPP ASSET 
+
+close_values = [
+    42700.949, 43017.199, 43318.25, 43619.398, 43737.898, 43658.648, 43683.602, 
+    43820.102, 43996.65, 43891.25, 44201.699, 44161.551, 43583.949, 43584.949, 
+    43689.148, 43449.602, 43577.5, 43769.102, 44566.449, 44481.75, 
+    44814.199, 46431.398, 47012.25, 46834.551, 46841.398, 47262, 47314.25, 
+    47097.551, 47092.25, 47732.301, 48143.551, 47867.699, 47870.898, 47445.301, 
+    47840.148, 47491.852, 47724.852, 48282.199, 48508.551, 48292.25, 48234.301, 
+    47761.648, 47704.949, 48195.852, 48159, 47450.25, 47242.648,  
+    47438.352, 47709.801, 48158.301, 48125.102, 46064.449, 45713.551, 45701.148, 
+    46058.2, 45015.051, 45082.398, 44866.148, 45442.352, 45367.75, 45996.801, 
+    46188.648, 45970.949, 45825.551, 45818.5, 45012, 45634.551, 
+    44882.25, 45502.398, 45908.301, 46218.898, 46384.852, 46535.5, 47094.199, 
+    47019.699, 46919.801, 46811.75, 46576.5, 46588.051, 45963.148, 46120.898, 
+    47286.898, 47286.898, 47456.102, 47581, 47835.801, 47327.852, 
+    47282.398, 46981.301, 46789.949, 46594.102, 46575.898, 46384.801, 46310.898, 
+    46684.898, 46863.75, 46600.199, 46785.949, 47124.602, 47578.25, 47545.449, 
+    47624.25, 48060.801, 48493.051, 48581.699, 48730.551, 48986.602, 48564.551, 
+    47773.25, 47484.801, 47069.449, 47574.148, 47924.898, 48189, 
+    48494.949, 48201.051, 49424.051, 49396.75, 49231.051, 48923.551, 48895.301, 
+    48285.352, 48021.102, 47487.898, 47421.102, 47754.102, 47859.449, 47687.449, 
+    47977.051, 48115.648, 48199.5,  47781.949, 48768.602, 48971.648, 
+    49281.801, 49142.148, 48501.352, 48682.352, 48983.949
+]
+
+# Creating a DataFrame from the given values
+opp = pd.DataFrame({'close': close_values})
+
+pnl_df.set_index(pnl_df['Trade Date'],inplace=True)
+pnl_df.index = pd.to_datetime(pnl_df.index, format='%d-%m-%Y')
+
+# # Dates to be removed
+# dates_to_remove = pd.to_datetime(["02-11-2023", "03-11-2023", "06-11-2023", "08-12-2023", "05-01-2024", "06-02-2024", "02-04-2024", "05-04-2024"], format='%d-%m-%Y')
+
+# # Removing the specified rows
+# pnl_df = pnl_df.drop(dates_to_remove)
+
+pnl_df.drop(columns=['Trade Date'],inplace=True)
+pnl_df['close'] = opp['close'].values
+
+pnl_df['Pos'] = 0
+pnl_df['long'] = np.where(pnl_df['close']>0,1,pnl_df['Pos'])
+pnl_df['Pos'] = np.where(pnl_df['long']==1,1,pnl_df['Pos'])
+pnl_df['returns'] = pnl_df['close'].pct_change()*pnl_df['Pos'].shift(1)
+pnl_df['Strategy1'] = (pnl_df['returns'].cumsum()) + 1
+pnl_df['bnf'] = (pnl_df['Strategy1'] - 1) * 100
+
+# pnl_df[['Equity Multiple','bnf']].plot()
 # # Create the equity curve
 # st.title("Equity Curve")
 
@@ -79,21 +127,50 @@ pnl_df.reset_index(inplace=True)
 # st.line_chart(pnl_df['Equity Multiple'])
 
 # Set the title
-st.title("Equity Curve")
+# st.title("Orion vs BankNifty")
+# zoom = alt.selection_interval(bind='scales')
+
+# # Plot with Altair
+# chart = alt.Chart(pnl_df).mark_line(color='purple').encode(
+#     x=alt.X('Trade Date:T', title='Trade Date', axis=alt.Axis(format='%Y-%m-%d')),
+#     y=alt.Y('Equity Multiple:Q', title='Equity Multiple')
+# ).properties(
+#     title='Equity Curve'
+# ).add_selection(
+#     zoom
+# )
+
+# # Display the plot in Streamlit
+# st.altair_chart(chart, use_container_width=True)
+
+st.title("Orion vs BankNifty")
 zoom = alt.selection_interval(bind='scales')
 
-# Plot with Altair
-chart = alt.Chart(pnl_df).mark_line(color='purple').encode(
-    x=alt.X('Trade Date:T', title='Trade Date', axis=alt.Axis(format='%Y-%m-%d')),
+# Create the base chart
+base = alt.Chart(pnl_df).encode(
+    x=alt.X('Trade Date:T', title='Trade Date', axis=alt.Axis(format='%Y-%m-%d'))
+)
+
+# Create the line for Equity Multiple
+equity_line = base.mark_line(color='purple').encode(
     y=alt.Y('Equity Multiple:Q', title='Equity Multiple')
+)
+
+# Create the line for BankNifty
+bnf_line = base.mark_line(color='blue').encode(
+    y=alt.Y('bnf:Q', title='BankNifty')
+)
+
+# Combine both lines in a layered chart
+chart = alt.layer(
+    equity_line,
+    bnf_line
 ).properties(
-    title='Equity Curve'
+    title='Equity Curve vs BankNifty'
 ).add_selection(
     zoom
 )
 
-# Display the plot in Streamlit
-st.altair_chart(chart, use_container_width=True)
 
 
 # def max_drawdown(df):
