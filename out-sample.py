@@ -15,6 +15,7 @@ import streamlit as st
 curve = pd.read_excel('jash.xlsx')
 import warnings
 warnings.filterwarnings('ignore')
+import altair as alt
 
 pnl = []
 
@@ -59,11 +60,26 @@ pnl_df['Equity Multiple'] = pnl_df['Daily Equity'] / initial_margin
 pnl_df['Strategy'] = pnl_df['Daily Equity'] / initial_margin
 pnl_df['Equity Multiple'] = (pnl_df['Daily Equity'] / initial_margin - 1) * 100
 
-# Create the equity curve
+# # Create the equity curve
+# st.title("Equity Curve")
+
+# # Simple line chart using Streamlit
+# st.line_chart(pnl_df['Equity Multiple'])
+
+# Set the title
 st.title("Equity Curve")
 
-# Simple line chart using Streamlit
-st.line_chart(pnl_df['Equity Multiple'])
+# Plot with Altair
+chart = alt.Chart(pnl_df).mark_line(color='purple').encode(  # Change color here
+    x='Date',
+    y='Equity Multiple'
+).properties(
+    title='Equity Curve'
+)
+
+# Display the plot in Streamlit
+st.altair_chart(chart, use_container_width=True)
+
 
 # def max_drawdown(df):
 #     """
