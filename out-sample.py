@@ -162,12 +162,15 @@ if not pnl_df.empty and 'Trade Date' in pnl_df.columns and 'Equity Multiple' in 
         y=alt.Y('bnf:Q', title='BankNifty')
     )
 
-    # Combine both lines in a layered chart
+    # Combine both lines in a layered chart without background elements
     chart = alt.layer(
         equity_line,
         bnf_line
     ).properties(
-        title='Equity Curve vs BankNifty'
+        title='Equity Curve vs BankNifty',
+        background=None
+    ).configure_view(
+        strokeOpacity=0
     ).add_selection(
         zoom
     )
