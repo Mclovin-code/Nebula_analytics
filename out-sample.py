@@ -70,6 +70,7 @@ pnl_df['Trade Date'] = pnl_df['Trade Date'].dt.date
 
 # Set the title
 st.title("Equity Curve")
+zoom = alt.selection_interval(bind='scales')
 
 # Plot with Altair
 chart = alt.Chart(pnl_df).mark_line(color='purple').encode(
