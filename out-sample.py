@@ -12,7 +12,7 @@ api_secret = 'cc704wqcx0a0a77w916lsp0kt3yy4yc6'
 import pandas as pd
 import numpy as np
 import streamlit as st
-curve = pd.read_excel('/Users/mclovin/Downloads/jash.xlsx')
+curve = pd.read_excel('jash.xlsx')
 import warnings
 warnings.filterwarnings('ignore')
 
