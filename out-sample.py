@@ -148,30 +148,28 @@ if not pnl_df.empty and 'Trade Date' in pnl_df.columns and 'Equity Multiple' in 
 
     # Create the base chart
     base = alt.Chart(pnl_df).encode(
-        x=alt.X('Trade Date:T', title='Trade Date', axis=alt.Axis(format='%Y-%m-%d'))
+        x=alt.X('Trade Date:T', title='Trade Date', axis=alt.Axis(format='%Y-%m-%d')),
+        y=alt.Y('Equity Multiple:Q', title='Equity Multiple, BankNifty')
     )
 
     # Create the line for Equity Multiple
     equity_line = base.mark_line(color='purple').encode(
-        y=alt.Y('Equity Multiple:Q', title='Equity Multiple')
+        y='Equity Multiple:Q'
     )
 
     # Create the line for BankNifty
-    bnf_line = base.mark_line(color='blue').encode(
-        y=alt.Y('bnf:Q', title='BankNifty')
+    bnf_line = base.mark_line(color='white').encode(
+        y='bnf:Q'
     )
 
-    # Combine both lines in a layered chart without scales
+    # Combine both lines in a layered chart
     chart = alt.layer(
         equity_line,
         bnf_line
     ).properties(
         title='Equity Curve vs BankNifty'
     ).configure_axis(
-        domain=False,
-        ticks=False,
-        labels=False,
-        grid=False
+        grid=False  # Remove grid lines
     ).add_selection(
         zoom
     )
