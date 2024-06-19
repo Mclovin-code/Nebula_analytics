@@ -68,6 +68,7 @@ pnl_df.set_index('Trade Date', inplace=True)
 
 pnl_df = pnl_df.resample('D').last()
 pnl_df.dropna(inplace=True)
+pnl_df.reset_index(inplace=True)
 
 # # Create the equity curve
 # st.title("Equity Curve")
