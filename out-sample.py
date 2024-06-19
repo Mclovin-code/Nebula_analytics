@@ -140,14 +140,7 @@ pnl_df['bnf'] = (pnl_df['Strategy1'] - 1) * 100
 #     zoom
 # )
 
-# # Display the plot in Streamlit
-# st.altair_chart(chart, use_container_width=True)
-
-# Display the DataFrame in Streamlit for debugging purposes
-st.write("Columns in DataFrame:", pnl_df.columns)
-
-# Display the DataFrame in Streamlit for debugging purposes
-st.write("DataFrame:", pnl_df)
+pnl_df.reset_index(inplace=True)
 
 # Ensure the DataFrame is not empty and contains the necessary columns
 if not pnl_df.empty and 'Trade Date' in pnl_df.columns and 'Equity Multiple' in pnl_df.columns and 'bnf' in pnl_df.columns:
