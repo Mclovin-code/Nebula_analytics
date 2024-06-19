@@ -72,12 +72,11 @@ pnl_df['Trade Date'] = pnl_df['Trade Date'].dt.date
 st.title("Equity Curve")
 
 # Plot with Altair
-chart = alt.Chart(pnl_df).mark_line(color='purple').encode(  # Change color here
-    x='Trade Date:Q',
-    y='Equity Multiple:Q'
+chart = alt.Chart(pnl_df).mark_line(color='purple').encode(
+    x=alt.X('Trade Date:T', title='Trade Date', axis=alt.Axis(format='%Y-%m-%d')),
+    y=alt.Y('Equity Multiple:Q', title='Equity Multiple')
 ).properties(
     title='Equity Curve'
-)
 
 # Display the plot in Streamlit
 st.altair_chart(chart, use_container_width=True)
