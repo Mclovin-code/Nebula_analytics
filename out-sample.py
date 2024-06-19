@@ -71,7 +71,7 @@ st.title("Equity Curve")
 
 # Plot with Altair
 chart = alt.Chart(pnl_df).mark_line(color='purple').encode(  # Change color here
-    x='Index:Q',
+    x='Equity Multiple:Q',
     y='Trade Date:Q'
 ).properties(
     title='Equity Curve'
