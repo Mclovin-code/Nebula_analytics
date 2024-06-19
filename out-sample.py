@@ -60,6 +60,8 @@ pnl_df['Equity Multiple'] = pnl_df['Daily Equity'] / initial_margin
 pnl_df['Strategy'] = pnl_df['Daily Equity'] / initial_margin
 pnl_df['Equity Multiple'] = (pnl_df['Daily Equity'] / initial_margin - 1) * 100
 
+pnl_df['Trade Date'] = pnl_df['Trade Date'].dt.date
+
 # # Create the equity curve
 # st.title("Equity Curve")
 
