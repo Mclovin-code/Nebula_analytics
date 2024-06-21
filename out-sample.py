@@ -142,8 +142,11 @@ pnl_df['bnf'] = (pnl_df['Strategy1'] - 1) * 100
 
 pnl_df.reset_index(inplace=True)
 
+# Hex color code for the purple shade
+purple_color = '#9D68D3'
+
 if not pnl_df.empty and 'Trade Date' in pnl_df.columns and 'Equity Multiple' in pnl_df.columns and 'bnf' in pnl_df.columns:
-    st.markdown("<h1 style='color: purple;'>ORION <span style='color: white;'>vs BankNifty</span></h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='color: {};'>ORION <span style='color: white;'>vs BankNifty</span></h1>".format(purple_color), unsafe_allow_html=True)
     
     zoom = alt.selection_interval(bind='scales')
 
@@ -153,7 +156,7 @@ if not pnl_df.empty and 'Trade Date' in pnl_df.columns and 'Equity Multiple' in 
     )
 
     # Create the line for Equity Multiple
-    equity_line = base.mark_line(color='purple').encode(
+    equity_line = base.mark_line(color=purple_color).encode(
         y=alt.Y('Equity Multiple:Q', title='Returns (%)')
     )
 
@@ -180,7 +183,6 @@ if not pnl_df.empty and 'Trade Date' in pnl_df.columns and 'Equity Multiple' in 
     st.altair_chart(chart, use_container_width=True)
 else:
     st.write("The DataFrame is empty or does not contain the required columns.")
-
 # def max_drawdown(df):
 #     """
 #     Calculate the maximum drawdown of a trading strategy.
