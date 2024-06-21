@@ -143,11 +143,10 @@ pnl_df['bnf'] = (pnl_df['Strategy1'] - 1) * 100
 
 pnl_df.reset_index(inplace=True)
 
-# Highlight point data
 highlight_point = pd.DataFrame({
     'Trade Date': ['2024-06-04'],
-    'Equity Multiple': [140],  # Example value; adjust according to actual data
-    'bnf': [140]  # Example value; adjust according to actual data
+    'Equity Multiple': [32.132],  # Example value; adjust according to actual data
+    'bnf': [46928]  # Example value; adjust according to actual data
 })
 
 # Hex color code for the purple shade
@@ -177,7 +176,12 @@ if not pnl_df.empty and 'Trade Date' in pnl_df.columns and 'Equity Multiple' in 
     highlight = alt.Chart(highlight_point).mark_point(size=100, color='red').encode(
         x='Trade Date:T',
         y='Equity Multiple:Q'
-    ).mark_text(
+    ).properties(
+        tooltip=['Trade Date', 'Equity Multiple']
+    )
+
+    # Create text annotation for the highlighted point
+    annotation = highlight.mark_text(
         align='left', dx=5, dy=-10, color='red'
     ).encode(
         text=alt.value('Elections - 9% Crash')
@@ -187,7 +191,8 @@ if not pnl_df.empty and 'Trade Date' in pnl_df.columns and 'Equity Multiple' in 
     chart = alt.layer(
         equity_line,
         bnf_line,
-        highlight
+        highlight,
+        annotation
     ).resolve_scale(
         y='shared'  # Ensure the y-axis is shared
     ).properties(
