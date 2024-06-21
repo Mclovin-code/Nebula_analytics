@@ -145,8 +145,8 @@ pnl_df.reset_index(inplace=True)
 
 highlight_point = pd.DataFrame({
     'Trade Date': ['2024-06-04'],
-    'Equity Multiple': [140],  # Example value; adjust according to actual data
-    'bnf': [140]  # Example value; adjust according to actual data
+    'Equity Multiple': [32.13796917652652],  # Example value; adjust according to actual data
+    'bnf': [46928]  # Example value; adjust according to actual data
 })
 
 # Hex color code for the purple shade
