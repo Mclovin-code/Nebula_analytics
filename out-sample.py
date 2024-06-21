@@ -175,10 +175,10 @@ if not pnl_df.empty and 'Trade Date' in pnl_df.columns and 'Equity Multiple' in 
         y=alt.Y('bnf:Q', title='Returns (%)')
     )
 
-    # Create the points to highlight the event on BankNifty line
+    # Create the points to highlight the event on ORION line
     highlight = alt.Chart(highlight_point).mark_point(size=100, color='red').encode(
         x='Trade Date:T',
-        y='bnf:Q'
+        y='Equity Multiple:Q'
     )
 
     # Create text annotation for the highlighted point
@@ -186,7 +186,7 @@ if not pnl_df.empty and 'Trade Date' in pnl_df.columns and 'Equity Multiple' in 
         align='left', dx=5, dy=-10, color='red'
     ).encode(
         x='Trade Date:T',
-        y='bnf:Q',
+        y='Equity Multiple:Q',
         text=alt.value('2024 Elections - 9% Crash')
     )
 
