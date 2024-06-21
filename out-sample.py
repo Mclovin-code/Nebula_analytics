@@ -183,6 +183,7 @@ if not pnl_df.empty and 'Trade Date' in pnl_df.columns and 'Equity Multiple' in 
     st.altair_chart(chart, use_container_width=True)
 else:
     st.write("The DataFrame is empty or does not contain the required columns.")
+
 # def max_drawdown(df):
 #     """
 #     Calculate the maximum drawdown of a trading strategy.
