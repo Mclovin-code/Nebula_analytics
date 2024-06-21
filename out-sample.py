@@ -152,6 +152,67 @@ highlight_point = pd.DataFrame({
 # Hex color code for the purple shade
 purple_color = '#9D68D3'
 
+# if not pnl_df.empty and 'Trade Date' in pnl_df.columns and 'Equity Multiple' in pnl_df.columns and 'bnf' in pnl_df.columns:
+#     st.markdown("<h1 style='color: {};'>ORION <span style='color: white;'>vs BankNifty</span></h1>".format(purple_color), unsafe_allow_html=True)
+    
+#     zoom = alt.selection_interval(bind='scales')
+
+#     # Create the base chart
+#     base = alt.Chart(pnl_df).encode(
+#         x=alt.X('Trade Date:T', title='Track record', axis=alt.Axis(format='%Y-%m-%d')),
+#     ).properties(
+#         width=800,  # Set the width of the chart
+#         height=600  # Set the height of the chart
+#     )
+
+#     # Create the line for Equity Multiple
+#     equity_line = base.mark_line(color=purple_color).encode(
+#         y=alt.Y('Equity Multiple:Q', title='Returns (%)')
+#     )
+
+#     # Create the line for BankNifty
+#     bnf_line = base.mark_line(color='white').encode(
+#         y=alt.Y('bnf:Q', title='Returns (%)')
+#     )
+
+#     # Create the points to highlight the event on ORION line
+#     highlight = alt.Chart(highlight_point).mark_point(size=150, color='white').encode(
+#         x='Trade Date:T',
+#         y='Equity Multiple:Q'
+#     )
+
+#     # Create text annotation for the highlighted point
+#     annotation = alt.Chart(highlight_point).mark_text(
+#         align='right', dx=5, dy=-10, color='white'
+#     ).encode(
+#         x='Trade Date:T',
+#         y='Equity Multiple:Q',
+#         text=alt.value('2024 Elections - 9% Crash')
+#     )
+
+#     # Combine both lines and highlight point in a layered chart
+#     chart = alt.layer(
+#         equity_line,
+#         bnf_line,
+#         highlight,
+#         annotation
+#     ).resolve_scale(
+#         y='shared'  # Ensure the y-axis is shared
+#     ).properties(
+#         title="The purple curve is made of actual Zerodha transactions executed by Nebula Technologies",
+#         width=1200,  # Set the width of the chart
+#         height=600  # Set the height of the chart
+#     ).configure_axis(
+#         grid=False  # Remove grid lines
+#     ).add_selection(
+#         zoom
+#     )
+
+#     # Display the plot in Streamlit
+#     st.altair_chart(chart, use_container_width=True)
+# else:
+#     st.write("The DataFrame is empty or does not contain the required columns.")
+
 if not pnl_df.empty and 'Trade Date' in pnl_df.columns and 'Equity Multiple' in pnl_df.columns and 'bnf' in pnl_df.columns:
     st.markdown("<h1 style='color: {};'>ORION <span style='color: white;'>vs BankNifty</span></h1>".format(purple_color), unsafe_allow_html=True)
     
@@ -210,6 +271,47 @@ if not pnl_df.empty and 'Trade Date' in pnl_df.columns and 'Equity Multiple' in 
 
     # Display the plot in Streamlit
     st.altair_chart(chart, use_container_width=True)
+
+    # Performance information
+    performance_info = """
+    **Asset**: BANK-NIFTY INDEX
+
+    **Leverage**: 2.5-4x
+
+    **AUM**: ₹1.55 crore
+
+    **Strategies**: 5 momentum strategies
+
+    **Trades**: Sells at-the-money BNF options
+
+    **Profit Sources**: Momentum swings, theta decay, and trending markets
+
+    **Loss Sources**: Extreme mean reversion and market randomness
+
+    **Track Record (Nov '23 - 6th June '24)**:
+
+    - Gross Returns: 35.66%
+    - Net Returns: 32.03%
+
+    **BNF Track Record (Nov '23 - 6th June '24)**:
+
+    - Returns: 15.47%
+
+    **Sharpe Ratio**: 2.1
+
+    **Maximum Drawdown**: 5.56%
+
+    **Maximum Drawdown Duration**: 1 week
+
+    **BNF Maximum Drawdown**: 9.88%
+
+    **Volatility**: 9.69%
+
+    **BNF Volatility**: 15.38%
+
+    **CAGR**: 20%
+    """
+    st.markdown(performance_info)
 else:
     st.write("The DataFrame is empty or does not contain the required columns.")
 
