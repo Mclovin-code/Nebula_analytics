@@ -143,7 +143,7 @@ pnl_df['bnf'] = (pnl_df['Strategy1'] - 1) * 100
 pnl_df.reset_index(inplace=True)
 
 if not pnl_df.empty and 'Trade Date' in pnl_df.columns and 'Equity Multiple' in pnl_df.columns and 'bnf' in pnl_df.columns:
-    st.markdown("<h1 style='color: purple;'>ORION vs BankNifty</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='color: purple;'>ORION <span style='color: white;'>vs BankNifty</span></h1>", unsafe_allow_html=True)
     
     zoom = alt.selection_interval(bind='scales')
 
