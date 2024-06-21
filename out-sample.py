@@ -160,6 +160,9 @@ if not pnl_df.empty and 'Trade Date' in pnl_df.columns and 'Equity Multiple' in 
     # Create the base chart
     base = alt.Chart(pnl_df).encode(
         x=alt.X('Trade Date:T', title='Track record', axis=alt.Axis(format='%Y-%m-%d')),
+    ).properties(
+        width=800,  # Set the width of the chart
+        height=600  # Set the height of the chart
     )
 
     # Create the line for Equity Multiple
@@ -172,18 +175,18 @@ if not pnl_df.empty and 'Trade Date' in pnl_df.columns and 'Equity Multiple' in 
         y=alt.Y('bnf:Q', title='Returns (%)')
     )
 
-    # Create the points to highlight the event
+    # Create the points to highlight the event on BankNifty line
     highlight = alt.Chart(highlight_point).mark_point(size=100, color='red').encode(
         x='Trade Date:T',
-        y='Equity Multiple:Q'
+        y='bnf:Q'
     )
 
     # Create text annotation for the highlighted point
     annotation = alt.Chart(highlight_point).mark_text(
-        align='left', dx=5, dy=-10, color='white'
+        align='left', dx=5, dy=-10, color='red'
     ).encode(
         x='Trade Date:T',
-        y='Equity Multiple:Q',
+        y='bnf:Q',
         text=alt.value('2024 Elections - 9% Crash')
     )
 
@@ -196,7 +199,9 @@ if not pnl_df.empty and 'Trade Date' in pnl_df.columns and 'Equity Multiple' in 
     ).resolve_scale(
         y='shared'  # Ensure the y-axis is shared
     ).properties(
-        title="The purple curve is made of actual Zerodha transactions executed by Nebula Technologies"
+        title="The purple curve is made of actual Zerodha transactions executed by Nebula Technologies",
+        width=800,  # Set the width of the chart
+        height=600  # Set the height of the chart
     ).configure_axis(
         grid=False  # Remove grid lines
     ).add_selection(
