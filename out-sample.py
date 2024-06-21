@@ -200,7 +200,7 @@ if not pnl_df.empty and 'Trade Date' in pnl_df.columns and 'Equity Multiple' in 
         y='shared'  # Ensure the y-axis is shared
     ).properties(
         title="The purple curve is made of actual Zerodha transactions executed by Nebula Technologies",
-        width=800,  # Set the width of the chart
+        width=1000,  # Set the width of the chart
         height=600  # Set the height of the chart
     ).configure_axis(
         grid=False  # Remove grid lines
