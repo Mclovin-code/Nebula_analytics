@@ -147,26 +147,27 @@ if not pnl_df.empty and 'Trade Date' in pnl_df.columns and 'Equity Multiple' in 
     
     zoom = alt.selection_interval(bind='scales')
 
-    # Create the base chart with shared y-axis title
+    # Create the base chart
     base = alt.Chart(pnl_df).encode(
         x=alt.X('Trade Date:T', title='Track record', axis=alt.Axis(format='%Y-%m-%d')),
-        y=alt.Y('Returns:Q', title='Returns (%)')
     )
 
     # Create the line for Equity Multiple
     equity_line = base.mark_line(color='purple').encode(
-        y='Equity Multiple:Q'
+        y=alt.Y('Equity Multiple:Q', title='Returns (%)')
     )
 
     # Create the line for BankNifty
     bnf_line = base.mark_line(color='white').encode(
-        y='bnf:Q'
+        y=alt.Y('bnf:Q', title='Returns (%)')
     )
 
     # Combine both lines in a layered chart
     chart = alt.layer(
         equity_line,
         bnf_line
+    ).resolve_scale(
+        y='shared'  # Ensure the y-axis is shared
     ).properties(
         title="The purple curve is made of actual Zerodha transactions executed by Nebula Technologies"
     ).configure_axis(
