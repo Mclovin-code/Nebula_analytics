@@ -152,7 +152,6 @@ highlight_point = pd.DataFrame({
 # Hex color code for the purple shade
 purple_color = '#9D68D3'
 
-
 if not pnl_df.empty and 'Trade Date' in pnl_df.columns and 'Equity Multiple' in pnl_df.columns and 'bnf' in pnl_df.columns:
     st.markdown("<h1 style='color: {};'>ORION <span style='color: white;'>vs BankNifty</span></h1>".format(purple_color), unsafe_allow_html=True)
     
@@ -173,10 +172,10 @@ if not pnl_df.empty and 'Trade Date' in pnl_df.columns and 'Equity Multiple' in 
         y=alt.Y('bnf:Q', title='Returns (%)')
     )
 
-    # Create the points to highlight the event on BankNifty line
+    # Create the points to highlight the event
     highlight = alt.Chart(highlight_point).mark_point(size=100, color='red').encode(
         x='Trade Date:T',
-        y='bnf:Q'
+        y='Equity Multiple:Q'
     )
 
     # Create text annotation for the highlighted point
@@ -184,7 +183,7 @@ if not pnl_df.empty and 'Trade Date' in pnl_df.columns and 'Equity Multiple' in 
         align='left', dx=5, dy=-10, color='red'
     ).encode(
         x='Trade Date:T',
-        y='bnf:Q',
+        y='Equity Multiple:Q',
         text=alt.value('2024 Elections - 9% Crash')
     )
 
