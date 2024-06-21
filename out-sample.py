@@ -176,15 +176,15 @@ if not pnl_df.empty and 'Trade Date' in pnl_df.columns and 'Equity Multiple' in 
     highlight = alt.Chart(highlight_point).mark_point(size=100, color='red').encode(
         x='Trade Date:T',
         y='Equity Multiple:Q'
-    ).properties(
-        tooltip=['Trade Date', 'Equity Multiple']
     )
 
     # Create text annotation for the highlighted point
-    annotation = highlight.mark_text(
+    annotation = alt.Chart(highlight_point).mark_text(
         align='left', dx=5, dy=-10, color='red'
     ).encode(
-        text=alt.value('Elections - 9% Crash')
+        x='Trade Date:T',
+        y='Equity Multiple:Q',
+        text=alt.value('2024 Elections - 9% Crash')
     )
 
     # Combine both lines and highlight point in a layered chart
