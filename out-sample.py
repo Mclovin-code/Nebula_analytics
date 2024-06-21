@@ -275,34 +275,23 @@ if not pnl_df.empty and 'Trade Date' in pnl_df.columns and 'Equity Multiple' in 
     # Performance information
     performance_info = """
     **Asset**: BANK-NIFTY INDEX
-
     **Leverage**: 2.5-4x
-
     **AUM**: ₹1.55 crore
-
     **Strategies**: 5 momentum strategies
-
     **Trades**: Sells at-the-money BNF options
-
     **Profit Sources**: Momentum swings, theta decay, and trending markets
-
     **Loss Sources**: Extreme mean reversion and market randomness
-
+    
     **Track Record (Nov '23 - 20th June '24)**:
-
     - Gross Returns: 34.31%
     - Net Returns: 30.97%
 
     **BNF Track Record (Nov '23 - 20th June '24)**:
-
     - Returns: 20.47%
 
     **Sharpe Ratio**: 2.95
-
     **Maximum Drawdown**: 5.56%
-
     **Volatility**: 19.12%
-
     **CAGR**: 56.01%
     """
     st.markdown(performance_info)
