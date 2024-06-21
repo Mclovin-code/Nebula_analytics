@@ -143,6 +143,13 @@ pnl_df['bnf'] = (pnl_df['Strategy1'] - 1) * 100
 
 pnl_df.reset_index(inplace=True)
 
+# Highlight point data
+highlight_point = pd.DataFrame({
+    'Trade Date': ['2024-06-04'],
+    'Equity Multiple': [140],  # Example value; adjust according to actual data
+    'bnf': [140]  # Example value; adjust according to actual data
+})
+
 # Hex color code for the purple shade
 purple_color = '#9D68D3'
 
@@ -166,10 +173,21 @@ if not pnl_df.empty and 'Trade Date' in pnl_df.columns and 'Equity Multiple' in 
         y=alt.Y('bnf:Q', title='Returns (%)')
     )
 
-    # Combine both lines in a layered chart
+    # Create the points to highlight the event
+    highlight = alt.Chart(highlight_point).mark_point(size=100, color='red').encode(
+        x='Trade Date:T',
+        y='Equity Multiple:Q'
+    ).mark_text(
+        align='left', dx=5, dy=-10, color='red'
+    ).encode(
+        text=alt.value('Elections - 9% Crash')
+    )
+
+    # Combine both lines and highlight point in a layered chart
     chart = alt.layer(
         equity_line,
-        bnf_line
+        bnf_line,
+        highlight
     ).resolve_scale(
         y='shared'  # Ensure the y-axis is shared
     ).properties(
