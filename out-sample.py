@@ -168,7 +168,7 @@ if not pnl_df.empty and 'Trade Date' in pnl_df.columns and 'Equity Multiple' in 
         equity_line,
         bnf_line
     ).properties(
-        title="ORION vs BankNifty"
+        title="The purple curve is made of actual Zerodha transactions executed by Nebula Technologies"
     ).configure_axis(
         grid=False  # Remove grid lines
     ).add_selection(
