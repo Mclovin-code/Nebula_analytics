@@ -288,28 +288,22 @@ if not pnl_df.empty and 'Trade Date' in pnl_df.columns and 'Equity Multiple' in 
 
     **Loss Sources**: Extreme mean reversion and market randomness
 
-    **Track Record (Nov '23 - 6th June '24)**:
+    **Track Record (Nov '23 - 20th June '24)**:
 
-    - Gross Returns: 35.66%
-    - Net Returns: 32.03%
+    - Gross Returns: 34.31%
+    - Net Returns: 30.97%
 
-    **BNF Track Record (Nov '23 - 6th June '24)**:
+    **BNF Track Record (Nov '23 - 20th June '24)**:
 
-    - Returns: 15.47%
+    - Returns: 20.47%
 
-    **Sharpe Ratio**: 2.1
+    **Sharpe Ratio**: 2.95
 
     **Maximum Drawdown**: 5.56%
 
-    **Maximum Drawdown Duration**: 1 week
+    **Volatility**: 19.12%
 
-    **BNF Maximum Drawdown**: 9.88%
-
-    **Volatility**: 9.69%
-
-    **BNF Volatility**: 15.38%
-
-    **CAGR**: 20%
+    **CAGR**: 56.01%
     """
     st.markdown(performance_info)
 else:
