@@ -143,8 +143,8 @@ pnl_df['bnf'] = (pnl_df['Strategy1'] - 1) * 100
 pnl_df.reset_index(inplace=True)
 
 if not pnl_df.empty and 'Trade Date' in pnl_df.columns and 'Equity Multiple' in pnl_df.columns and 'bnf' in pnl_df.columns:
-    st.markdown("<h1 style='color: purple;'>ORION</h1>", unsafe_allow_html=True)
-    st.markdown("<h2 style='color: white;'>vs BankNifty</h2>", unsafe_allow_html=True)
+    st.markdown("<h1 style='color: purple;'>ORION vs BankNifty</h1>", unsafe_allow_html=True)
+    
     zoom = alt.selection_interval(bind='scales')
 
     # Create the base chart
@@ -159,7 +159,7 @@ if not pnl_df.empty and 'Trade Date' in pnl_df.columns and 'Equity Multiple' in 
     )
 
     # Create the line for BankNifty
-    bnf_line = base.mark_line(color='blue').encode(
+    bnf_line = base.mark_line(color='white').encode(
         y='bnf:Q'
     )
 
@@ -168,11 +168,7 @@ if not pnl_df.empty and 'Trade Date' in pnl_df.columns and 'Equity Multiple' in 
         equity_line,
         bnf_line
     ).properties(
-        title={
-            "text": "ORION vs BankNifty",
-            "subtitle": "",
-            "color": "purple"
-        }
+        title="ORION vs BankNifty"
     ).configure_axis(
         grid=False  # Remove grid lines
     ).add_selection(
