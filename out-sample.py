@@ -147,10 +147,10 @@ if not pnl_df.empty and 'Trade Date' in pnl_df.columns and 'Equity Multiple' in 
     
     zoom = alt.selection_interval(bind='scales')
 
-    # Create the base chart
+    # Create the base chart with shared y-axis title
     base = alt.Chart(pnl_df).encode(
         x=alt.X('Trade Date:T', title='Track record', axis=alt.Axis(format='%Y-%m-%d')),
-        y=alt.Y('Equity Multiple:Q', title='Returns (%)')
+        y=alt.Y('Returns:Q', title='Returns (%)')
     )
 
     # Create the line for Equity Multiple
