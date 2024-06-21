@@ -176,14 +176,14 @@ if not pnl_df.empty and 'Trade Date' in pnl_df.columns and 'Equity Multiple' in 
     )
 
     # Create the points to highlight the event on ORION line
-    highlight = alt.Chart(highlight_point).mark_point(size=100, color='red').encode(
+    highlight = alt.Chart(highlight_point).mark_point(size=150, color='white').encode(
         x='Trade Date:T',
         y='Equity Multiple:Q'
     )
 
     # Create text annotation for the highlighted point
     annotation = alt.Chart(highlight_point).mark_text(
-        align='left', dx=5, dy=-10, color='red'
+        align='right', dx=5, dy=-10, color='white'
     ).encode(
         x='Trade Date:T',
         y='Equity Multiple:Q',
