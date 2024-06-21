@@ -180,7 +180,7 @@ if not pnl_df.empty and 'Trade Date' in pnl_df.columns and 'Equity Multiple' in 
 
     # Create text annotation for the highlighted point
     annotation = alt.Chart(highlight_point).mark_text(
-        align='left', dx=5, dy=-10, color='red'
+        align='left', dx=5, dy=-10, color='white'
     ).encode(
         x='Trade Date:T',
         y='Equity Multiple:Q',
