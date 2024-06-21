@@ -222,7 +222,7 @@ if not pnl_df.empty and 'Trade Date' in pnl_df.columns and 'Equity Multiple' in 
     base = alt.Chart(pnl_df).encode(
         x=alt.X('Trade Date:T', title='Track record', axis=alt.Axis(format='%Y-%m-%d')),
     ).properties(
-        width=800,  # Set the width of the chart
+        width=1200,  # Set the width of the chart
         height=600  # Set the height of the chart
     )
 
